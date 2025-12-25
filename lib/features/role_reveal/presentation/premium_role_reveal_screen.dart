@@ -294,10 +294,11 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                           ],
                         ),
                       ),
-                      child: const Icon(
-                        Icons.person,
-                        size: 64,
-                        color: Color(0xFF4ECDC4),
+                      child: Text(
+                        _getPlayerAvatar(player.name),
+                        style: const TextStyle(
+                          fontSize: 48,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 24),
@@ -439,10 +440,11 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                         ],
                       ),
                     ),
-                    child: Icon(
-                      isImposter ? Icons.person_remove : Icons.person,
-                      size: 48,
-                      color: isImposter ? const Color(0xFFFF6B6B) : const Color(0xFF26DE81),
+                    child: Text(
+                      _getPlayerAvatar(player.name),
+                      style: const TextStyle(
+                        fontSize: 36,
+                      ),
                     ),
                   ),
                 ),
@@ -609,5 +611,23 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
       _dangerController.stop();
       _dangerController.reset();
     });
+  }
+
+  String _getPlayerAvatar(String name) {
+    final hash = name.hashCode;
+    final avatars = [
+      // Faces & People
+      '😀', '😎', '🤓', '😊', '😋', '😍', '🤗', '🥳', '🤩', '🙃',
+      '😄', '😆', '🤠', '🤡', '🥸', '😇', '🤑', '🤓', '😈', '👻',
+
+      // Animals
+      '🐶', '🐱', '🐼', '🦊', '🐨', '🐸', '🦆', '🐧', '🐯', '🦁',
+      '🐰', '🐻', '🐵', '🐮', '🐷', '🐺', '🐙', '🦀', '🐢', '🦄',
+
+      // Fun Objects
+      '🎭', '🎪', '🎨', '🎯', '🎲', '🎮', '🎸', '🎺', '🎻', '🎹',
+      '⚽', '🏀', '🎾', '🏆', '🎖️', '🏅', '🎂', '🍕', '🍔', '🎈',
+    ];
+    return avatars[hash.abs() % avatars.length];
   }
 }

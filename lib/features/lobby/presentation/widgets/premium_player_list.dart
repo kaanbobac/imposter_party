@@ -230,11 +230,9 @@ class _PremiumPlayerListState extends State<PremiumPlayerList> {
                     ),
                     child: Center(
                       child: Text(
-                        player.name.isNotEmpty ? player.name[0].toUpperCase() : '?',
-                        style: GoogleFonts.montserrat(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+                        _getPlayerAvatar(player.name),
+                        style: const TextStyle(
+                          fontSize: 22,
                         ),
                       ),
                     ),
@@ -325,6 +323,24 @@ class _PremiumPlayerListState extends State<PremiumPlayerList> {
       [const Color(0xFFFF8A80), const Color(0xFFFF5722)],
     ];
     return gradients[hash.abs() % gradients.length];
+  }
+
+  String _getPlayerAvatar(String name) {
+    final hash = name.hashCode;
+    final avatars = [
+      // Faces & People
+      '😀', '😎', '🤓', '😊', '😋', '😍', '🤗', '🥳', '🤩', '🙃',
+      '😄', '😆', '🤠', '🤡', '🥸', '😇', '🤑', '🤓', '😈', '👻',
+
+      // Animals
+      '🐶', '🐱', '🐼', '🦊', '🐨', '🐸', '🦆', '🐧', '🐯', '🦁',
+      '🐰', '🐻', '🐵', '🐮', '🐷', '🐺', '🐙', '🦀', '🐢', '🦄',
+
+      // Fun Objects
+      '🎭', '🎪', '🎨', '🎯', '🎲', '🎮', '🎸', '🎺', '🎻', '🎹',
+      '⚽', '🏀', '🎾', '🏆', '🎖️', '🏅', '🎂', '🍕', '🍔', '🎈',
+    ];
+    return avatars[hash.abs() % avatars.length];
   }
 
   void _removePlayer(String playerName) {

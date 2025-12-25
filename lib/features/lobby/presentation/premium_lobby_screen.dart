@@ -480,14 +480,19 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(18),
+                      boxShadow: [
+                        BoxShadow(
+                          color: _getPlayerGradient(player.name)[0].withValues(alpha: 0.3),
+                          blurRadius: 8,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
                     ),
                     child: Center(
                       child: Text(
-                        player.name.isNotEmpty ? player.name[0].toUpperCase() : '?',
-                        style: GoogleFonts.montserrat(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                        _getPlayerAvatar(player.name),
+                        style: const TextStyle(
+                          fontSize: 18,
                         ),
                       ),
                     ),
@@ -633,6 +638,24 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
       [const Color(0xFFFF8A80), const Color(0xFFFF5722)],
     ];
     return gradients[hash.abs() % gradients.length];
+  }
+
+  String _getPlayerAvatar(String name) {
+    final hash = name.hashCode;
+    final avatars = [
+      // Faces & People
+      '😀', '😎', '🤓', '😊', '😋', '😍', '🤗', '🥳', '🤩', '🙃',
+      '😄', '😆', '🤠', '🤡', '🥸', '😇', '🤑', '🤓', '😈', '👻',
+
+      // Animals
+      '🐶', '🐱', '🐼', '🦊', '🐨', '🐸', '🦆', '🐧', '🐯', '🦁',
+      '🐰', '🐻', '🐵', '🐮', '🐷', '🐺', '🐙', '🦀', '🐢', '🦄',
+
+      // Fun Objects
+      '🎭', '🎪', '🎨', '🎯', '🎲', '🎮', '🎸', '🎺', '🎻', '🎹',
+      '⚽', '🏀', '🎾', '🏆', '🎖️', '🏅', '🎂', '🍕', '🍔', '🎈',
+    ];
+    return avatars[hash.abs() % avatars.length];
   }
 
   Widget _buildGameStatus(GameState gameState, GameNotifier gameNotifier) {

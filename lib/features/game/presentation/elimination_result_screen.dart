@@ -73,17 +73,28 @@ class EliminationResultScreen extends ConsumerWidget {
                 ),
                 child: Column(
                   children: [
-                    CircleAvatar(
-                      radius: 30,
-                      backgroundColor: wasImposter ? Colors.red : Colors.blue,
-                      child: Text(
-                        eliminatedPlayerName.isNotEmpty
-                            ? eliminatedPlayerName[0].toUpperCase()
-                            : '?',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors: _getPlayerGradient(eliminatedPlayerName),
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: (wasImposter ? Colors.red : Colors.blue).withOpacity(0.4),
+                            blurRadius: 8,
+                            offset: const Offset(0, 4),
+                          ),
+                        ],
+                      ),
+                      child: Center(
+                        child: Text(
+                          _getPlayerAvatar(eliminatedPlayerName),
+                          style: const TextStyle(
+                            fontSize: 32,
+                          ),
                         ),
                       ),
                     ),
@@ -254,5 +265,36 @@ class EliminationResultScreen extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  String _getPlayerAvatar(String name) {
+    final hash = name.hashCode;
+    final avatars = [
+      // Faces & People
+      '😀', '😎', '🤓', '😊', '😋', '😍', '🤗', '🥳', '🤩', '🙃',
+      '😄', '😆', '🤠', '🤡', '🥸', '😇', '🤑', '🤓', '😈', '👻',
+
+      // Animals
+      '🐶', '🐱', '🐼', '🦊', '🐨', '🐸', '🦆', '🐧', '🐯', '🦁',
+      '🐰', '🐻', '🐵', '🐮', '🐷', '🐺', '🐙', '🦀', '🐢', '🦄',
+
+      // Fun Objects
+      '🎭', '🎪', '🎨', '🎯', '🎲', '🎮', '🎸', '🎺', '🎻', '🎹',
+      '⚽', '🏀', '🎾', '🏆', '🎖️', '🏅', '🎂', '🍕', '🍔', '🎈',
+    ];
+    return avatars[hash.abs() % avatars.length];
+  }
+
+  List<Color> _getPlayerGradient(String name) {
+    final hash = name.hashCode;
+    final gradients = [
+      [const Color(0xFF4ECDC4), const Color(0xFF44A08D)],
+      [const Color(0xFF6C5CE7), const Color(0xFFA55EEA)],
+      [const Color(0xFFFF6B6B), const Color(0xFFE74C3C)],
+      [const Color(0xFFFFB74D), const Color(0xFFFFA726)],
+      [const Color(0xFF26DE81), const Color(0xFF2ECC71)],
+      [const Color(0xFFFF8A80), const Color(0xFFFF5722)],
+    ];
+    return gradients[hash.abs() % gradients.length];
   }
 }

@@ -134,19 +134,33 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
                               ),
                               child: Row(
                                 children: [
-                                  CircleAvatar(
-                                    backgroundColor: isSelected
-                                        ? Colors.red
-                                        : Colors.grey[400],
-                                    child: Text(
-                                      player.name.isNotEmpty
-                                          ? player.name[0].toUpperCase()
-                                          : '?',
-                                      style: TextStyle(
-                                        color: isSelected
-                                            ? Colors.white
-                                            : Colors.grey[700],
-                                        fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: 48,
+                                    height: 48,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      gradient: isSelected
+                                          ? const LinearGradient(
+                                              colors: [Color(0xFFFF6B6B), Color(0xFFE74C3C)],
+                                            )
+                                          : LinearGradient(
+                                              colors: _getPlayerGradient(player.name),
+                                            ),
+                                      boxShadow: [
+                                        if (isSelected)
+                                          BoxShadow(
+                                            color: const Color(0xFFFF6B6B).withOpacity(0.4),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 4),
+                                          ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        _getPlayerAvatar(player.name),
+                                        style: const TextStyle(
+                                          fontSize: 24,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -303,5 +317,36 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
         ],
       ),
     );
+  }
+
+  String _getPlayerAvatar(String name) {
+    final hash = name.hashCode;
+    final avatars = [
+      // Faces & People
+      '😀', '😎', '🤓', '😊', '😋', '😍', '🤗', '🥳', '🤩', '🙃',
+      '😄', '😆', '🤠', '🤡', '🥸', '😇', '🤑', '🤓', '😈', '👻',
+
+      // Animals
+      '🐶', '🐱', '🐼', '🦊', '🐨', '🐸', '🦆', '🐧', '🐯', '🦁',
+      '🐰', '🐻', '🐵', '🐮', '🐷', '🐺', '🐙', '🦀', '🐢', '🦄',
+
+      // Fun Objects
+      '🎭', '🎪', '🎨', '🎯', '🎲', '🎮', '🎸', '🎺', '🎻', '🎹',
+      '⚽', '🏀', '🎾', '🏆', '🎖️', '🏅', '🎂', '🍕', '🍔', '🎈',
+    ];
+    return avatars[hash.abs() % avatars.length];
+  }
+
+  List<Color> _getPlayerGradient(String name) {
+    final hash = name.hashCode;
+    final gradients = [
+      [const Color(0xFF4ECDC4), const Color(0xFF44A08D)],
+      [const Color(0xFF6C5CE7), const Color(0xFFA55EEA)],
+      [const Color(0xFFFF6B6B), const Color(0xFFE74C3C)],
+      [const Color(0xFFFFB74D), const Color(0xFFFFA726)],
+      [const Color(0xFF26DE81), const Color(0xFF2ECC71)],
+      [const Color(0xFFFF8A80), const Color(0xFFFF5722)],
+    ];
+    return gradients[hash.abs() % gradients.length];
   }
 }

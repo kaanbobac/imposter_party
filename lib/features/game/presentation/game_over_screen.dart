@@ -253,15 +253,28 @@ class GameOverScreen extends ConsumerWidget {
                   ),
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        radius: 16,
-                        backgroundColor: color,
-                        child: Text(
-                          player.name.isNotEmpty ? player.name[0].toUpperCase() : '?',
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                      Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: _getPlayerGradient(player.name),
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: color.withOpacity(0.4),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            _getPlayerAvatar(player.name),
+                            style: const TextStyle(
+                              fontSize: 16,
+                            ),
                           ),
                         ),
                       ),
@@ -318,5 +331,36 @@ class GameOverScreen extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  String _getPlayerAvatar(String name) {
+    final hash = name.hashCode;
+    final avatars = [
+      // Faces & People
+      '😀', '😎', '🤓', '😊', '😋', '😍', '🤗', '🥳', '🤩', '🙃',
+      '😄', '😆', '🤠', '🤡', '🥸', '😇', '🤑', '🤓', '😈', '👻',
+
+      // Animals
+      '🐶', '🐱', '🐼', '🦊', '🐨', '🐸', '🦆', '🐧', '🐯', '🦁',
+      '🐰', '🐻', '🐵', '🐮', '🐷', '🐺', '🐙', '🦀', '🐢', '🦄',
+
+      // Fun Objects
+      '🎭', '🎪', '🎨', '🎯', '🎲', '🎮', '🎸', '🎺', '🎻', '🎹',
+      '⚽', '🏀', '🎾', '🏆', '🎖️', '🏅', '🎂', '🍕', '🍔', '🎈',
+    ];
+    return avatars[hash.abs() % avatars.length];
+  }
+
+  List<Color> _getPlayerGradient(String name) {
+    final hash = name.hashCode;
+    final gradients = [
+      [const Color(0xFF4ECDC4), const Color(0xFF44A08D)],
+      [const Color(0xFF6C5CE7), const Color(0xFFA55EEA)],
+      [const Color(0xFFFF6B6B), const Color(0xFFE74C3C)],
+      [const Color(0xFFFFB74D), const Color(0xFFFFA726)],
+      [const Color(0xFF26DE81), const Color(0xFF2ECC71)],
+      [const Color(0xFFFF8A80), const Color(0xFFFF5722)],
+    ];
+    return gradients[hash.abs() % gradients.length];
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../application/game_notifier.dart';
 import '../domain/game_state.dart';
@@ -152,9 +153,7 @@ class GameOverScreen extends ConsumerWidget {
                         _buildStat(context, 'Imposters', imposters.length.toString()),
                         _buildStat(context, 'Eliminated', gameState.eliminatedPlayers.length.toString()),
                         _buildStat(context, 'Secret Word',
-                          gameState.players
-                            .where((p) => p.role == PlayerRole.civilian)
-                            .firstOrNull?.secretWord ?? 'N/A'),
+                          civilians.isNotEmpty ? (civilians.first.secretWord ?? 'N/A') : 'N/A'),
                       ],
                     ),
                   ],
@@ -168,7 +167,10 @@ class GameOverScreen extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                      onPressed: gameNotifier.resetGame,
+                      onPressed: () {
+                        gameNotifier.resetGame();
+                        context.go('/');
+                      },
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(color: Colors.white),
                         padding: const EdgeInsets.all(16),
@@ -185,7 +187,10 @@ class GameOverScreen extends ConsumerWidget {
                   const SizedBox(width: 16),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: gameNotifier.resetGame,
+                      onPressed: () {
+                        gameNotifier.resetGame();
+                        context.go('/');
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: isImpostersWin ? Colors.red[900] : Colors.blue[900],

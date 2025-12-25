@@ -140,33 +140,6 @@ class _PremiumPlayerListState extends State<PremiumPlayerList> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            gradient: RadialGradient(
-              colors: [
-                const Color(0xFF6C5CE7).withValues(alpha: 0.2),
-                Colors.transparent,
-              ],
-            ),
-          ),
-          child: const Icon(
-            Icons.person_add,
-            size: 48,
-            color: Color(0xFF6C5CE7),
-          ),
-        )
-            .animate(
-              onPlay: (controller) => controller.repeat(reverse: true),
-            )
-            .scale(
-              duration: 2000.ms,
-              begin: const Offset(0.9, 0.9),
-              end: const Offset(1.1, 1.1),
-              curve: Curves.easeInOut,
-            ),
-        const SizedBox(height: 16),
         Text(
           'No players yet',
           style: GoogleFonts.montserrat(
@@ -177,7 +150,7 @@ class _PremiumPlayerListState extends State<PremiumPlayerList> {
         ),
         const SizedBox(height: 8),
         Text(
-          'Add players to start the mystery',
+          'Add players using the button above',
           style: GoogleFonts.montserrat(
             color: Colors.white.withValues(alpha: 0.7),
             fontSize: 14,

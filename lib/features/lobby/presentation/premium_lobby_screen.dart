@@ -374,10 +374,6 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                         fontSize: 16,
                       ),
                       border: InputBorder.none,
-                      prefixIcon: const Icon(
-                        Icons.person_add,
-                        color: Color(0xFF6C5CE7),
-                      ),
                     ),
                     onSubmitted: _addPlayer,
                   ),
@@ -407,49 +403,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
   }
 
   Widget _buildEmptyPlayersState() {
-    return Container(
-      height: 120,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: RadialGradient(
-                colors: [
-                  const Color(0xFF6C5CE7).withValues(alpha: 0.2),
-                  Colors.transparent,
-                ],
-              ),
-            ),
-            child: const Icon(
-              Icons.person_add,
-              size: 32,
-              color: Color(0xFF6C5CE7),
-            ),
-          )
-              .animate(
-                onPlay: (controller) => controller.repeat(reverse: true),
-              )
-              .scale(
-                duration: 2000.ms,
-                begin: const Offset(0.9, 0.9),
-                end: const Offset(1.1, 1.1),
-                curve: Curves.easeInOut,
-              ),
-          const SizedBox(height: 12),
-          Text(
-            'Ready for players!',
-            style: GoogleFonts.montserrat(
-              color: Colors.white.withValues(alpha: 0.7),
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
+    return const SizedBox(height: 60);
   }
 
   Widget _buildPlayersList(List<Player> players, GameNotifier gameNotifier) {

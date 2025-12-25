@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../game/application/game_notifier.dart';
 import '../../game/domain/game_state.dart';
 import '../../../shared/domain/game_settings.dart';
@@ -83,12 +84,12 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
                   ),
                 ],
               ),
-              child: const Text(
-                '🕵️ IMPOSTER GAME',
-                style: TextStyle(
+              child: Text(
+                AppStrings.appTitle,
+                style: const TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
-                  fontSize: 18,
+                  fontSize: 16,
                 ),
               ),
             ),
@@ -105,7 +106,7 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
             child: IconButton(
               icon: const Icon(Icons.help_outline, color: Color(0xFF4ECDC4)),
               onPressed: () => _showGameRules(context),
-              tooltip: 'Game Rules',
+              tooltip: AppStrings.gameRulesTooltip,
             ),
           ),
         ],
@@ -177,9 +178,9 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
                                     color: Color(0xFF4ECDC4), size: 24),
                                 ),
                                 const SizedBox(width: 12),
-                                const Text(
-                                  'Add Players',
-                                  style: TextStyle(
+                                Text(
+                                  AppStrings.addPlayersTitle,
+                                  style: const TextStyle(
                                     color: Color(0xFF4ECDC4),
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
@@ -203,15 +204,15 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
                                     child: TextField(
                                       controller: _playerNameController,
                                       style: const TextStyle(color: Colors.white),
-                                      decoration: const InputDecoration(
-                                        labelText: 'Player Name',
-                                        labelStyle: TextStyle(color: Color(0xFF4ECDC4)),
-                                        hintText: 'Enter player name...',
-                                        hintStyle: TextStyle(color: Colors.white54),
+                                      decoration: InputDecoration(
+                                        labelText: AppStrings.playerNameLabel,
+                                        labelStyle: const TextStyle(color: Color(0xFF4ECDC4)),
+                                        hintText: AppStrings.playerNameHint,
+                                        hintStyle: const TextStyle(color: Colors.white54),
                                         border: InputBorder.none,
-                                        contentPadding: EdgeInsets.symmetric(
+                                        contentPadding: const EdgeInsets.symmetric(
                                           horizontal: 20, vertical: 16),
-                                        prefixIcon: Icon(Icons.person,
+                                        prefixIcon: const Icon(Icons.person,
                                           color: Color(0xFF4ECDC4)),
                                       ),
                                       onSubmitted: _addPlayer,
@@ -238,8 +239,8 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
                                   child: ElevatedButton.icon(
                                     onPressed: _addPlayer,
                                     icon: const Icon(Icons.add_circle, color: Colors.white),
-                                    label: const Text('ADD',
-                                      style: TextStyle(
+                                    label: Text(AppStrings.addButton,
+                                      style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                       )),
@@ -304,17 +305,21 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
     Color statusColor;
 
     if (playerCount < settings.minimumPlayers) {
-      statusText = 'Need at least ${settings.minimumPlayers} players to start';
+      statusText = AppStrings.minPlayersStatus.replaceAll('{min}', '${settings.minimumPlayers}');
       statusColor = Colors.red;
     } else if (playerCount > settings.maximumPlayers) {
-      statusText = 'Too many players (max ${settings.maximumPlayers})';
+      statusText = AppStrings.maxPlayersStatus.replaceAll('{max}', '${settings.maximumPlayers}');
       statusColor = Colors.red;
     } else if (!settings.isValidForPlayerCount(playerCount)) {
       final maxImposters = settings.getMaxImpostersForPlayerCount(playerCount);
-      statusText = 'Too many imposters (max $maxImposters for $playerCount players)';
+      statusText = AppStrings.tooManyBoomerStatus
+          .replaceAll('{max}', '$maxImposters')
+          .replaceAll('{count}', '$playerCount');
       statusColor = Colors.red;
     } else {
-      statusText = 'Ready to start! ($playerCount players, ${settings.imposterCount} imposters)';
+      statusText = AppStrings.readyToStartStatus
+          .replaceAll('{count}', '$playerCount')
+          .replaceAll('{boomers}', '${settings.imposterCount}');
       statusColor = Colors.green;
     }
 
@@ -424,7 +429,7 @@ class _LobbyScreenState extends ConsumerState<LobbyScreen> {
                     ),
                     const SizedBox(width: 12),
                     Text(
-                      'START GAME',
+                      AppStrings.startGameButton,
                       style: TextStyle(
                         color: canStart ? Colors.white : Colors.grey,
                         fontSize: 20,

@@ -15,21 +15,21 @@ extension WordCategoryExtension on WordCategory {
   String get displayName {
     switch (this) {
       case WordCategory.food:
-        return 'Food & Drinks';
+        return 'Yemek & İçecek';
       case WordCategory.countries:
-        return 'Countries';
+        return 'Ülkeler';
       case WordCategory.animals:
-        return 'Animals';
+        return 'Hayvanlar';
       case WordCategory.movies:
-        return 'Movies & TV';
+        return 'Film & Dizi';
       case WordCategory.sports:
-        return 'Sports';
+        return 'Spor';
       case WordCategory.technology:
-        return 'Technology';
+        return 'Teknoloji';
       case WordCategory.professions:
-        return 'Professions';
+        return 'Meslekler';
       case WordCategory.colors:
-        return 'Colors';
+        return 'Renkler';
     }
   }
 

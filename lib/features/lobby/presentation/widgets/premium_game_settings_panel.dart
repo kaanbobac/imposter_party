@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../shared/domain/game_settings.dart';
 import '../../../../shared/domain/word_categories.dart';
 import '../../../../shared/presentation/widgets/glassmorphic_card.dart';
@@ -56,12 +57,14 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
               ),
             ),
             const SizedBox(width: 16),
-            Text(
-              'Game Settings',
-              style: GoogleFonts.montserrat(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+            Flexible(
+              child: Text(
+                AppStrings.gameSettingsTitle,
+                style: GoogleFonts.montserrat(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -101,30 +104,34 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFF6B6B).withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(10),
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFF6B6B).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Icon(
+                        Icons.person_remove,
+                        color: Color(0xFFFF6B6B),
+                        size: 18,
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.person_remove,
-                      color: Color(0xFFFF6B6B),
-                      size: 18,
+                    const SizedBox(width: 12),
+                    Flexible(
+                      child: Text(
+                        AppStrings.boomerCountLabel,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    'Imposters',
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -197,7 +204,7 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Imposter count: $validCurrentImposters (fixed based on player count)',
+                      'Boomer sayısı: $validCurrentImposters (oyuncu sayısına göre sabit)',
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFFFF6B6B),
                         fontSize: 12,
@@ -231,7 +238,7 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
-                      'Max imposters for ${widget.playerCount} players: $maxImposters',
+                      'En fazla Boomer sayısı (${widget.playerCount} oyuncuya göre): $maxImposters',
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF4ECDC4),
                         fontSize: 12,
@@ -271,12 +278,14 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
                 ),
               ),
               const SizedBox(width: 12),
-              Text(
-                'Word Category',
-                style: GoogleFonts.montserrat(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
+              Flexible(
+                child: Text(
+                  AppStrings.categoryLabel,
+                  style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ],
@@ -359,7 +368,7 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'A random word from this category will be assigned to civilians',
+                    'Bu kategoriden rastgele bir kelime Fenomenlere verilecek',
                     style: GoogleFonts.montserrat(
                       color: const Color(0xFF6C5CE7),
                       fontSize: 12,
@@ -387,30 +396,34 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFFB74D).withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(10),
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFFFB74D).withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: const Icon(
+                        Icons.timer,
+                        color: Color(0xFFFFB74D),
+                        size: 18,
+                      ),
                     ),
-                    child: const Icon(
-                      Icons.timer,
-                      color: Color(0xFFFFB74D),
-                      size: 18,
+                    const SizedBox(width: 12),
+                    Flexible(
+                      child: Text(
+                        AppStrings.durationLabel,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  Text(
-                    'Game Duration',
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -428,7 +441,7 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
                   ],
                 ),
                 child: Text(
-                  '${widget.settings.gameDurationSeconds ~/ 60} min',
+                  '${widget.settings.gameDurationSeconds ~/ 60} ${AppStrings.durationMinutes}',
                   style: GoogleFonts.montserrat(
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -476,7 +489,7 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
-                    'Discussion time: ${widget.settings.gameDurationSeconds ~/ 60} minutes',
+                    'Konuşma süresi: ${widget.settings.gameDurationSeconds ~/ 60} ${AppStrings.durationMinutes}',
                     style: GoogleFonts.montserrat(
                       color: const Color(0xFFFFB74D),
                       fontSize: 12,

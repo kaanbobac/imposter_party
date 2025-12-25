@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../application/game_notifier.dart';
 import '../../../shared/domain/player.dart';
 
@@ -28,9 +29,9 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
       backgroundColor: Colors.red[50],
       appBar: AppBar(
         backgroundColor: Colors.red[700],
-        title: const Text(
-          'Voting Phase',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        title: Text(
+          AppStrings.votingPhase,
+          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         elevation: 0,
         actions: [
@@ -40,7 +41,7 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
               ref.read(gameNotifierProvider.notifier).resetGame();
               context.go('/');
             },
-            tooltip: 'New Game',
+            tooltip: AppStrings.newGameTooltip,
           ),
         ],
       ),
@@ -67,7 +68,7 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Vote to Eliminate',
+                      AppStrings.voteToEliminate,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Colors.red[700],
                         fontWeight: FontWeight.bold,
@@ -75,7 +76,7 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'Choose a player to eliminate from the game. The majority decision will determine who is removed.',
+                      AppStrings.voteDescription,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.red[600],
                       ),
@@ -93,7 +94,7 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Select a player to eliminate:',
+                      AppStrings.selectToEliminate,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -205,7 +206,7 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
                         padding: const EdgeInsets.all(16),
                         side: BorderSide(color: Colors.grey[600]!),
                       ),
-                      child: const Text('Skip Vote'),
+                      child: Text(AppStrings.skipVote),
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -222,8 +223,8 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
                       ),
                       child: Text(
                         selectedPlayer != null
-                            ? 'ELIMINATE ${selectedPlayer!.toUpperCase()}'
-                            : 'SELECT A PLAYER',
+                            ? AppStrings.eliminatePlayerButton.replaceAll('{player}', selectedPlayer!.toUpperCase())
+                            : AppStrings.selectPlayerButton,
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -247,14 +248,14 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Confirm Elimination'),
+        title: Text(AppStrings.confirmElimination),
         content: Text(
-          'Are you sure you want to eliminate $playerName from the game?\n\nThis action cannot be undone.',
+          AppStrings.eliminationConfirm.replaceAll('{player}', playerName),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(AppStrings.cancel),
           ),
           ElevatedButton(
             onPressed: () {
@@ -265,7 +266,7 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
               backgroundColor: Colors.red,
               foregroundColor: Colors.white,
             ),
-            child: const Text('Eliminate'),
+            child: Text(AppStrings.eliminate),
           ),
         ],
       ),
@@ -296,14 +297,12 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Skip Voting'),
-        content: const Text(
-          'Are you sure you want to skip this voting round?\n\nNo one will be eliminated.',
-        ),
+        title: Text(AppStrings.skipVoting),
+        content: Text(AppStrings.skipVotingConfirm),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Cancel'),
+            child: Text(AppStrings.cancel),
           ),
           TextButton(
             onPressed: () {
@@ -312,7 +311,7 @@ class _VotingScreenState extends ConsumerState<VotingScreen> {
               // For now, this could go back to discussion or end the game
               gameNotifier.resetGame();
             },
-            child: const Text('Skip'),
+            child: Text(AppStrings.skip),
           ),
         ],
       ),

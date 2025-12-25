@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../shared/domain/player.dart';
 
 class RoleCard extends StatelessWidget {
@@ -64,7 +65,7 @@ class RoleCard extends StatelessWidget {
             // Role Text
             if (isImposter) ...[
               Text(
-                'YOU ARE THE',
+                AppStrings.youAreThe,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Colors.red[300],
                   fontWeight: FontWeight.w500,
@@ -74,7 +75,7 @@ class RoleCard extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'IMPOSTER',
+                AppStrings.roleBoomer.toUpperCase(),
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   color: Colors.red,
                   fontWeight: FontWeight.bold,
@@ -90,7 +91,7 @@ class RoleCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  '⚠️ You don\'t know the secret word!\nBlend in with the conversation.',
+                  AppStrings.boomerRoleInstruction,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.red[200],
                     fontStyle: FontStyle.italic,
@@ -100,7 +101,7 @@ class RoleCard extends StatelessWidget {
               ),
             ] else ...[
               Text(
-                'YOU ARE A',
+                AppStrings.youAreA,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Colors.blue[300],
                   fontWeight: FontWeight.w500,
@@ -110,7 +111,7 @@ class RoleCard extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               Text(
-                'CIVILIAN',
+                AppStrings.roleFenomen.toUpperCase(),
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
@@ -129,7 +130,7 @@ class RoleCard extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Your Secret Word:',
+                      AppStrings.yourSecretWord,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Colors.blue[200],
                         fontWeight: FontWeight.w500,
@@ -147,7 +148,7 @@ class RoleCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      '🔍 Find the imposters who don\'t know this word!',
+                      AppStrings.fenomenRoleInstruction,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: Colors.blue[200],
                         fontStyle: FontStyle.italic,
@@ -179,7 +180,7 @@ class RoleCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Tap to Hide',
+                    AppStrings.tapToHideRole,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w600,

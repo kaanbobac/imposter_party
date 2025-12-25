@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../application/game_notifier.dart';
 import '../domain/game_state.dart';
 import 'widgets/game_timer_widget.dart';
@@ -43,9 +44,9 @@ class GameScreen extends ConsumerWidget {
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text(
-          'Discussion Phase',
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          AppStrings.discussionPhase,
+          style: const TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
@@ -58,7 +59,7 @@ class GameScreen extends ConsumerWidget {
               gameNotifier.resetGame();
               context.go('/');
             },
-            tooltip: 'New Game',
+            tooltip: AppStrings.newGameTooltip,
           ),
         ],
       ),
@@ -97,7 +98,7 @@ class GameScreen extends ConsumerWidget {
                 child: ElevatedButton.icon(
                   onPressed: gameNotifier.startVoting,
                   icon: const Icon(Icons.how_to_vote),
-                  label: const Text('START VOTING'),
+                  label: Text(AppStrings.startVotingButton),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.red,
                     foregroundColor: Colors.white,

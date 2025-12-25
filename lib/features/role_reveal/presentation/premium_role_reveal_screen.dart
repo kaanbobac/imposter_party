@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../game/application/game_notifier.dart';
 import '../../game/domain/game_state.dart';
 import '../../../shared/domain/player.dart';
@@ -164,7 +165,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
       backgroundColor: Colors.transparent,
       elevation: 0,
       title: Text(
-        'MYSTERY REVEAL',
+        AppStrings.mysteryReveal,
         style: GoogleFonts.montserrat(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -210,7 +211,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
       child: Column(
         children: [
           Text(
-            'ROLE REVEALS',
+            AppStrings.roleReveals,
             style: GoogleFonts.montserrat(
               color: Colors.white,
               fontSize: 20,
@@ -242,7 +243,9 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
               .scaleX(duration: 500.ms, curve: Curves.easeOutBack),
           const SizedBox(height: 12),
           Text(
-            'Player $currentIndex of $totalPlayers',
+            AppStrings.playerCountTemplate
+                .replaceAll('{current}', currentIndex.toString())
+                .replaceAll('{total}', totalPlayers.toString()),
             style: GoogleFonts.montserrat(
               color: Colors.white.withValues(alpha: 0.7),
               fontSize: 14,
@@ -313,7 +316,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'TAP TO REVEAL\nYOUR ROLE',
+                      AppStrings.tapToRevealRole,
                       style: GoogleFonts.montserrat(
                         color: const Color(0xFF4ECDC4),
                         fontSize: 16,
@@ -333,7 +336,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                         ),
                       ),
                       child: Text(
-                        'Pass device securely',
+                        AppStrings.passDeviceSecure,
                         style: GoogleFonts.montserrat(
                           color: const Color(0xFF4ECDC4),
                           fontSize: 12,
@@ -482,7 +485,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                     ],
                   ),
                   child: Text(
-                    isImposter ? 'IMPOSTER' : 'CIVILIAN',
+                    isImposter ? AppStrings.roleBoomer : AppStrings.roleFenomen,
                     style: GoogleFonts.montserrat(
                       color: Colors.white,
                       fontSize: 16,
@@ -502,7 +505,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                 // Secret Word (for civilians only)
                 if (!isImposter && player.secretWord != null) ...[
                   Text(
-                    'Your Secret Word:',
+                    AppStrings.yourSecretWord,
                     style: GoogleFonts.montserrat(
                       color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 12,
@@ -530,7 +533,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                   ),
                 ] else if (isImposter) ...[
                   Text(
-                    'Find the secret word\nwithout revealing yourself',
+                    AppStrings.boomerInstruction,
                     style: GoogleFonts.montserrat(
                       color: const Color(0xFFFF6B6B),
                       fontSize: 12,
@@ -552,7 +555,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                     ),
                   ),
                   child: Text(
-                    'Tap to hide and continue',
+                    AppStrings.tapToHideContinue,
                     style: GoogleFonts.montserrat(
                       color: Colors.white.withValues(alpha: 0.8),
                       fontSize: 11,
@@ -582,8 +585,8 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
           Expanded(
             child: Text(
               _isRevealed
-                  ? 'Keep your role secret! Tap to hide and pass to next player'
-                  : 'Pass the device to the next player, then tap to reveal their role',
+                  ? AppStrings.roleSecretInstruction
+                  : AppStrings.passToNextInstruction,
               style: GoogleFonts.montserrat(
                 color: Colors.white.withValues(alpha: 0.8),
                 fontSize: 14,

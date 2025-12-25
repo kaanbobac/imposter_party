@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_strings.dart';
 import '../../../../shared/domain/player.dart';
 
 class PlayerStatusWidget extends StatelessWidget {
@@ -26,7 +27,7 @@ class PlayerStatusWidget extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Game Status',
+            AppStrings.gameStatus,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -40,7 +41,7 @@ class PlayerStatusWidget extends StatelessWidget {
                 child: _buildStatusCard(
                   context,
                   icon: Icons.group,
-                  label: 'Active Players',
+                  label: AppStrings.activePlayers,
                   value: activePlayers.toString(),
                   color: Colors.blue,
                 ),
@@ -51,7 +52,7 @@ class PlayerStatusWidget extends StatelessWidget {
                 child: _buildStatusCard(
                   context,
                   icon: Icons.warning,
-                  label: 'Imposters',
+                  label: AppStrings.impostersLabel,
                   value: imposterCount.toString(),
                   color: Colors.red,
                 ),
@@ -63,7 +64,7 @@ class PlayerStatusWidget extends StatelessWidget {
                   child: _buildStatusCard(
                     context,
                     icon: Icons.remove_circle,
-                    label: 'Eliminated',
+                    label: AppStrings.eliminatedPlayers,
                     value: eliminatedPlayers.toString(),
                     color: Colors.grey,
                   ),

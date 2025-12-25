@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_strings.dart';
+
 class PassToPlayerCard extends StatelessWidget {
   final String playerName;
   final VoidCallback onTap;
@@ -39,7 +41,7 @@ class PassToPlayerCard extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'Pass to',
+              AppStrings.passTo,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                 color: Colors.grey[400],
                 fontWeight: FontWeight.w300,
@@ -72,7 +74,7 @@ class PassToPlayerCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Tap to Reveal Role',
+                    AppStrings.tapToRevealRole,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                       color: Colors.red,
                       fontWeight: FontWeight.w600,

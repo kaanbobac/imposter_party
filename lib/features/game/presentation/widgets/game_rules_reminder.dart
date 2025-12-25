@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../../core/constants/app_strings.dart';
+
 class GameRulesReminder extends StatelessWidget {
   const GameRulesReminder({super.key});
 
@@ -23,7 +25,7 @@ class GameRulesReminder extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Text(
-                'Discussion Phase',
+                AppStrings.discussionPhaseTitle,
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -40,32 +42,32 @@ class GameRulesReminder extends StatelessWidget {
                   _buildRuleItem(
                     context,
                     icon: Icons.chat_bubble_outline,
-                    title: 'For Civilians',
-                    description: 'Discuss the secret word without saying it directly. Ask questions to identify the imposters.',
+                    title: AppStrings.forFenomens,
+                    description: AppStrings.fenomenInstructions,
                     color: Colors.blue,
                   ),
                   const SizedBox(height: 16),
                   _buildRuleItem(
                     context,
                     icon: Icons.warning_amber,
-                    title: 'For Imposters',
-                    description: 'Blend in! Ask general questions and make comments that could apply to any topic.',
+                    title: AppStrings.forBoomers,
+                    description: AppStrings.boomerInstructions,
                     color: Colors.red,
                   ),
                   const SizedBox(height: 16),
                   _buildRuleItem(
                     context,
                     icon: Icons.psychology,
-                    title: 'Strategy Tips',
-                    description: 'Pay attention to who seems confused or asks suspicious questions. Imposters might avoid specific details.',
+                    title: AppStrings.strategyTips,
+                    description: AppStrings.strategyDescription,
                     color: Colors.green,
                   ),
                   const SizedBox(height: 16),
                   _buildRuleItem(
                     context,
                     icon: Icons.timer,
-                    title: 'Time Pressure',
-                    description: 'Use the timer to create urgency. Quick thinking can reveal who really knows the word!',
+                    title: AppStrings.timePressure,
+                    description: AppStrings.timePressureDescription,
                     color: Colors.orange,
                   ),
                 ],

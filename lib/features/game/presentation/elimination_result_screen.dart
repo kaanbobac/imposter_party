@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../application/game_notifier.dart';
 import '../domain/game_state.dart';
 import '../../../shared/domain/player.dart';
@@ -50,7 +51,7 @@ class EliminationResultScreen extends ConsumerWidget {
 
               // Result Title
               Text(
-                wasImposter ? 'EXCELLENT!' : 'WRONG CHOICE!',
+                wasImposter ? AppStrings.excellent : AppStrings.wrongChoice,
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                   color: wasImposter ? Colors.green[700] : Colors.red[700],
                   fontWeight: FontWeight.bold,
@@ -113,7 +114,7 @@ class EliminationResultScreen extends ConsumerWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Text(
-                        wasImposter ? 'IMPOSTER' : 'CIVILIAN',
+                        wasImposter ? AppStrings.roleBoomer.toUpperCase() : AppStrings.roleFenomen.toUpperCase(),
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -129,9 +130,7 @@ class EliminationResultScreen extends ConsumerWidget {
 
               // Result Message
               Text(
-                wasImposter
-                    ? 'You eliminated an imposter! Well done!'
-                    : 'You eliminated a civilian. The imposters are still among you...',
+                wasImposter ? AppStrings.boomerEliminated : AppStrings.fenomenEliminated,
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: wasImposter ? Colors.green[700] : Colors.red[700],
                   fontWeight: FontWeight.w500,
@@ -168,7 +167,7 @@ class EliminationResultScreen extends ConsumerWidget {
               Icon(Icons.emoji_events, color: Colors.orange[700], size: 32),
               const SizedBox(height: 8),
               Text(
-                'Game Over!',
+                AppStrings.gameOver,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: Colors.orange[700],
                   fontWeight: FontWeight.bold,
@@ -176,7 +175,7 @@ class EliminationResultScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                '${gameState.gameWinner?.toUpperCase()} WIN!',
+                '${gameState.gameWinner?.toUpperCase()} ${AppStrings.winMessage}',
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                   color: Colors.orange[700],
                   fontWeight: FontWeight.bold,
@@ -191,7 +190,7 @@ class EliminationResultScreen extends ConsumerWidget {
             Expanded(
               child: OutlinedButton(
                 onPressed: () => context.go('/game-over'),
-                child: const Text('View Results'),
+                child: Text(AppStrings.viewResults),
               ),
             ),
             const SizedBox(width: 16),
@@ -201,7 +200,7 @@ class EliminationResultScreen extends ConsumerWidget {
                   gameNotifier.resetGame();
                   context.go('/');
                 },
-                child: const Text('New Game'),
+                child: Text(AppStrings.newGameButton),
               ),
             ),
           ],
@@ -226,7 +225,7 @@ class EliminationResultScreen extends ConsumerWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: Text(
-                  'The game continues. Return to discussion or start a new game.',
+                  AppStrings.gameContinuesMessage,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Colors.blue[700],
                   ),
@@ -244,7 +243,7 @@ class EliminationResultScreen extends ConsumerWidget {
                   gameNotifier.continueGame();
                   context.go('/game');
                 },
-                child: const Text('Continue Game'),
+                child: Text(AppStrings.continueGame),
               ),
             ),
             const SizedBox(width: 16),
@@ -258,7 +257,7 @@ class EliminationResultScreen extends ConsumerWidget {
                   backgroundColor: Colors.orange,
                   foregroundColor: Colors.white,
                 ),
-                child: const Text('New Game'),
+                child: Text(AppStrings.newGameButton),
               ),
             ),
           ],

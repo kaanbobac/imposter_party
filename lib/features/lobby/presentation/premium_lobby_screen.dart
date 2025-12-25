@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../../game/application/game_notifier.dart';
 import '../../game/domain/game_state.dart';
 import '../../../shared/domain/game_settings.dart';
@@ -186,13 +187,34 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                     ),
                   ),
                   const SizedBox(width: 12),
-                  Text(
-                    'MYSTERY IMPOSTER',
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      letterSpacing: 1.2,
+                  Flexible(
+                    child: RichText(
+                      text: TextSpan(
+                        style: GoogleFonts.montserrat(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          letterSpacing: 1.2,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: AppStrings.mainTitle,
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          const TextSpan(text: ' '),
+                          TextSpan(
+                            text: AppStrings.mainTitleHighlight,
+                            style: const TextStyle(
+                              color: Color(0xFF00FFFF), // Neon cyan for "Boomer?"
+                              shadows: [
+                                Shadow(
+                                  color: Color(0xFF00FFFF),
+                                  blurRadius: 8,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -264,7 +286,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
               ),
               const SizedBox(height: 16),
               Text(
-                'GATHER YOUR CREW',
+                AppStrings.subHeader,
                 style: GoogleFonts.montserrat(
                   color: Colors.white,
                   fontSize: 28,
@@ -274,7 +296,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
               ),
               const SizedBox(height: 8),
               Text(
-                'Someone among you is the imposter...',
+                AppStrings.warningMessage,
                 style: GoogleFonts.montserrat(
                   color: const Color(0xFF4ECDC4),
                   fontSize: 16,
@@ -315,7 +337,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
               ),
               const SizedBox(width: 16),
               Text(
-                'Players',
+                AppStrings.playersTitle,
                 style: GoogleFonts.montserrat(
                   color: Colors.white,
                   fontSize: 20,
@@ -363,12 +385,12 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                       fontSize: 16,
                     ),
                     decoration: InputDecoration(
-                      labelText: 'Player Name',
+                      labelText: AppStrings.playerNameLabel,
                       labelStyle: GoogleFonts.montserrat(
                         color: const Color(0xFF6C5CE7),
                         fontSize: 14,
                       ),
-                      hintText: 'Enter name...',
+                      hintText: AppStrings.playerNameHint,
                       hintStyle: GoogleFonts.montserrat(
                         color: Colors.white.withValues(alpha: 0.5),
                         fontSize: 16,
@@ -381,7 +403,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
               ),
               const SizedBox(width: 16),
               PremiumButton(
-                text: 'ADD',
+                text: AppStrings.addButton,
                 style: PremiumButtonStyle.primary,
                 icon: Icons.add_circle,
                 onPressed: () => _addPlayer(),
@@ -521,7 +543,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
               ),
               const SizedBox(width: 16),
               Text(
-                'Add Players',
+                AppStrings.addPlayerButton,
                 style: GoogleFonts.montserrat(
                   color: Colors.white,
                   fontSize: 20,
@@ -546,12 +568,12 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                       fontSize: 16,
                     ),
                     decoration: InputDecoration(
-                      labelText: 'Player Name',
+                      labelText: AppStrings.playerNameLabel,
                       labelStyle: GoogleFonts.montserrat(
                         color: const Color(0xFF4ECDC4),
                         fontSize: 14,
                       ),
-                      hintText: 'Enter name...',
+                      hintText: AppStrings.playerNameHint,
                       hintStyle: GoogleFonts.montserrat(
                         color: Colors.white.withValues(alpha: 0.5),
                         fontSize: 16,
@@ -568,7 +590,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
               ),
               const SizedBox(width: 16),
               PremiumButton(
-                text: 'ADD',
+                text: AppStrings.addButton,
                 style: PremiumButtonStyle.primary,
                 icon: Icons.add_circle,
                 onPressed: () => _addPlayer(),
@@ -622,20 +644,20 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
     IconData statusIcon;
 
     if (playerCount < settings.minimumPlayers) {
-      statusText = 'Need ${settings.minimumPlayers - playerCount} more players';
+      statusText = AppStrings.minPlayersError;
       buttonStyle = PremiumButtonStyle.secondary;
       statusIcon = Icons.group_add;
     } else if (playerCount > settings.maximumPlayers) {
-      statusText = 'Too many players (max ${settings.maximumPlayers})';
+      statusText = AppStrings.maxPlayersError;
       buttonStyle = PremiumButtonStyle.danger;
       statusIcon = Icons.warning;
     } else if (!settings.isValidForPlayerCount(playerCount)) {
       final maxImposters = settings.getMaxImpostersForPlayerCount(playerCount);
-      statusText = 'Too many imposters (max $maxImposters)';
+      statusText = 'Çok fazla Boomer seçildi!';
       buttonStyle = PremiumButtonStyle.danger;
       statusIcon = Icons.warning;
     } else {
-      statusText = 'Ready to unveil the mystery!';
+      statusText = AppStrings.readyToPlay;
       buttonStyle = PremiumButtonStyle.success;
       statusIcon = Icons.play_circle_filled;
     }
@@ -679,7 +701,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                     if (canStart) ...[
                       const SizedBox(height: 4),
                       Text(
-                        '$playerCount players, ${settings.imposterCount} imposters',
+                        '$playerCount kişi, ${settings.imposterCount} Boomer',
                         style: GoogleFonts.montserrat(
                           color: const Color(0xFF4ECDC4),
                           fontSize: 14,
@@ -697,7 +719,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
 
           // Start Button
           PremiumButton(
-            text: _isStartingGame ? 'STARTING...' : 'START MYSTERY',
+            text: _isStartingGame ? 'BAŞLIYORUZ...' : AppStrings.startGameButton,
             style: buttonStyle,
             icon: _isStartingGame ? null : Icons.psychology,
             isExpanded: true,
@@ -721,7 +743,7 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-            '$playerName joined the game!',
+            '$playerName kadroya katıldı! 🎭',
             style: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
           ),
           backgroundColor: const Color(0xFF4ECDC4),

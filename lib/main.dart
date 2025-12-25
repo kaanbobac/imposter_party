@@ -15,7 +15,7 @@ class ImposterGameApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      title: 'Imposter - Social Deduction Game',
+      title: 'Kim Bu Aramızdaki Boomer? - Sosyal Dedüksiyon Oyunu',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,

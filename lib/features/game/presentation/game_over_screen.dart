@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/constants/app_strings.dart';
 import '../application/game_notifier.dart';
 import '../domain/game_state.dart';
 import '../../../shared/domain/player.dart';
@@ -51,7 +52,7 @@ class GameOverScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 16),
                     Text(
-                      'GAME OVER',
+                      AppStrings.gameOver,
                       style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -60,7 +61,7 @@ class GameOverScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      isImpostersWin ? 'IMPOSTERS WIN!' : 'CIVILIANS WIN!',
+                      isImpostersWin ? AppStrings.boomerWin : AppStrings.fenomenWin,
                       style: Theme.of(context).textTheme.headlineMedium?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -69,8 +70,8 @@ class GameOverScreen extends ConsumerWidget {
                     const SizedBox(height: 16),
                     Text(
                       isImpostersWin
-                          ? '🎭 The imposters successfully deceived everyone!'
-                          : '🔍 The civilians successfully identified all imposters!',
+                          ? AppStrings.boomerWinMessage
+                          : AppStrings.fenomenWinMessage,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: Colors.white70,
                         fontStyle: FontStyle.italic,
@@ -88,7 +89,7 @@ class GameOverScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Player Roles',
+                      AppStrings.playerRoles,
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -102,7 +103,7 @@ class GameOverScreen extends ConsumerWidget {
                           Expanded(
                             child: _buildRoleColumn(
                               context,
-                              title: 'Imposters',
+                              title: AppStrings.boomersTitle,
                               players: imposters,
                               color: Colors.red,
                               icon: Icons.warning,
@@ -113,7 +114,7 @@ class GameOverScreen extends ConsumerWidget {
                           Expanded(
                             child: _buildRoleColumn(
                               context,
-                              title: 'Civilians',
+                              title: AppStrings.fenomenlerTitle,
                               players: civilians,
                               color: Colors.blue,
                               icon: Icons.shield,
@@ -139,7 +140,7 @@ class GameOverScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Game Statistics',
+                      AppStrings.gameStats,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -149,10 +150,10 @@ class GameOverScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _buildStat(context, 'Players', gameState.players.length.toString()),
-                        _buildStat(context, 'Imposters', imposters.length.toString()),
-                        _buildStat(context, 'Eliminated', gameState.eliminatedPlayers.length.toString()),
-                        _buildStat(context, 'Secret Word',
+                        _buildStat(context, AppStrings.totalPlayers, gameState.players.length.toString()),
+                        _buildStat(context, AppStrings.totalBoomers, imposters.length.toString()),
+                        _buildStat(context, AppStrings.eliminated, gameState.eliminatedPlayers.length.toString()),
+                        _buildStat(context, AppStrings.secretWord,
                           civilians.isNotEmpty ? (civilians.first.secretWord ?? 'N/A') : 'N/A'),
                       ],
                     ),
@@ -175,9 +176,9 @@ class GameOverScreen extends ConsumerWidget {
                         side: const BorderSide(color: Colors.white),
                         padding: const EdgeInsets.all(16),
                       ),
-                      child: const Text(
-                        'New Game',
-                        style: TextStyle(
+                      child: Text(
+                        AppStrings.newGameButton,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
@@ -196,9 +197,9 @@ class GameOverScreen extends ConsumerWidget {
                         foregroundColor: isImpostersWin ? Colors.red[900] : Colors.blue[900],
                         padding: const EdgeInsets.all(16),
                       ),
-                      child: const Text(
-                        'Play Again',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      child: Text(
+                        AppStrings.playAgainButton,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
@@ -297,7 +298,7 @@ class GameOverScreen extends ConsumerWidget {
                             ),
                             if (player.isEliminated)
                               Text(
-                                'Eliminated',
+                                AppStrings.eliminated,
                                 style: TextStyle(
                                   color: Colors.grey[400],
                                   fontSize: 12,

@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 
 import '../features/game/domain/game_state.dart';
 import '../features/game/application/game_notifier.dart';
-import '../features/lobby/presentation/lobby_screen.dart';
-import '../features/role_reveal/presentation/role_reveal_screen.dart';
+import '../features/lobby/presentation/premium_lobby_screen.dart';
+import '../features/role_reveal/presentation/premium_role_reveal_screen.dart';
 import '../features/game/presentation/game_screen.dart';
 import '../features/game/presentation/voting_screen.dart';
 import '../features/game/presentation/game_over_screen.dart';
@@ -20,12 +20,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/',
         name: 'lobby',
-        builder: (context, state) => const LobbyScreen(),
+        builder: (context, state) => const PremiumLobbyScreen(),
       ),
       GoRoute(
         path: '/role-reveal',
         name: 'roleReveal',
-        builder: (context, state) => const RoleRevealScreen(),
+        builder: (context, state) => const PremiumRoleRevealScreen(),
       ),
       GoRoute(
         path: '/game',

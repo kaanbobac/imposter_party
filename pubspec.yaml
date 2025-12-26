@@ -50,6 +50,9 @@ dependencies:
   google_fonts: ^6.1.0
   lottie: ^3.1.2
 
+  # Screen wake lock
+  wakelock_plus: ^1.2.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -62,6 +65,9 @@ dev_dependencies:
   riverpod_generator: ^2.4.3
   freezed: ^2.5.7
   json_serializable: ^6.8.0
+
+  # Launcher Icons
+  flutter_launcher_icons: ^0.13.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -104,3 +110,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+# Launcher Icon Configuration
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "icon.png"
+  min_sdk_android: 21
+  web:
+    generate: true
+    image_path: "icon.png"

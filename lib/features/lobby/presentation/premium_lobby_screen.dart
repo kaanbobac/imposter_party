@@ -385,11 +385,6 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                       fontSize: 16,
                     ),
                     decoration: InputDecoration(
-                      labelText: AppStrings.playerNameLabel,
-                      labelStyle: GoogleFonts.montserrat(
-                        color: const Color(0xFF6C5CE7),
-                        fontSize: 14,
-                      ),
                       hintText: AppStrings.playerNameHint,
                       hintStyle: GoogleFonts.montserrat(
                         color: Colors.white.withValues(alpha: 0.5),
@@ -568,11 +563,6 @@ class _PremiumLobbyScreenState extends ConsumerState<PremiumLobbyScreen>
                       fontSize: 16,
                     ),
                     decoration: InputDecoration(
-                      labelText: AppStrings.playerNameLabel,
-                      labelStyle: GoogleFonts.montserrat(
-                        color: const Color(0xFF4ECDC4),
-                        fontSize: 14,
-                      ),
                       hintText: AppStrings.playerNameHint,
                       hintStyle: GoogleFonts.montserrat(
                         color: Colors.white.withValues(alpha: 0.5),

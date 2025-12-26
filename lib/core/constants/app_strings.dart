@@ -9,14 +9,14 @@ class AppStrings {
   static const String playersTitle = 'Kadro';
   static const String addPlayerButton = 'Yeni Birini Ekle';
   static const String playerNameHint = 'İsim yaz...';
-  static const String playerNameLabel = 'Oyuncu İsmi';
   static const String emptySquadMessage = 'Kadro boş, birilerini çağır!';
 
   // Game Settings
   static const String gameSettingsTitle = 'Oyun Ayarları';
-  static const String boomerCountLabel = 'Kaç Boomer Olacak?';
-  static const String categoryLabel = 'Ne Hakkında Konuşalım?';
-  static const String durationLabel = 'Konuşma Süresi';
+  static const String boomerCountLabel = 'Boomer Sayısı';
+  static const String boomerWarning = 'Daha fazla boomer icin daha cok oyuncu eklmeleisin';
+  static const String categoryLabel = 'Kategori Seçimi';
+  static const String durationLabel = 'Oyun Süresi';
   static const String durationMinutes = 'dakika';
 
   // Categories
@@ -46,7 +46,9 @@ class AppStrings {
   // Game Flow
   static const String roleRevealTitle = 'Rolünü Öğren';
   static const String mysteryReveal = 'GİZEM AÇILIYOR';
-  static const String roleReveals = 'ROL AÇILIMLARI';
+  static const String roleReveals = 'Roller Belirleniyor';
+  static const String nextPlayer = 'Sıradaki oyuncu ile devam et';
+  static const String previousPlayer = 'Bir önceki oyuncuya dön';
   static const String tapToReveal = 'Rolünü görmek için dokun';
   static const String tapToRevealRole = 'ROLÜNÜ GÖRMEK\nİÇİN DOKUN';
   static const String tapToHide = 'Gizle ve devam et';
@@ -76,11 +78,11 @@ class AppStrings {
 
   // Voting & Elimination
   static const String votingPhase = 'Oylama Zamanı';
-  static const String voteToEliminate = 'Oylamak İçin Seç';
-  static const String voteDescription = 'Oyundan çıkarılacak bir oyuncu seçin. Çoğunluğun kararı kimin çıkarılacağını belirleyecek.';
+  static const String voteToEliminate = 'Boomer kimdi?';
+  static const String voteDescription = 'Yapacağın oylama ile boomer\'ı seç, seçtiğin isim oyundan elenecek. Dikkatli düşün ve boomer\'ın seni kandırmasına izin verme!';
   static const String selectToEliminate = 'Çıkarılacak bir oyuncu seçin:';
-  static const String eliminateButton = 'ÇIKAR';
-  static const String eliminatePlayerButton = '{player} ÇIKAR';
+  static const String eliminateButton = 'Oyundan Çıkar';
+  static const String eliminatePlayerButton = '{player} Oyundan Çıkar';
   static const String selectPlayerButton = 'BİR OYUNCU SEÇİN';
   static const String skipVote = 'Pas Geç';
   static const String skipVoting = 'Oylamayı Geç';
@@ -93,7 +95,7 @@ class AppStrings {
   static const String fenomenWin = 'FENOMENLER KAZANDI!';
   static const String boomerWin = 'BOOMERLAR KAZANDI!';
   static const String fenomenWinMessage = '🔥 Fenomenler konuyu bilerek kazandı!';
-  static const String boomerWinMessage = '😎 Boomerlar kimliklerini saklayarak kazandı!';
+  static const String boomerWinMessage = 'Boomerlar kazandı, üzgünüz fenomenler!';
   static const String playerRoles = 'Kimler Kimmiş';
   static const String gameStats = 'Oyun İstatistikleri';
   static const String totalPlayers = 'Toplam';
@@ -104,7 +106,7 @@ class AppStrings {
   // Elimination Results
   static const String excellent = 'SÜPER!';
   static const String wrongChoice = 'YANLIŞ SEÇİM!';
-  static const String boomerEliminated = 'Bir Boomer\'ı buldunuz! Aferin!';
+  static const String boomerEliminated = 'Bir Boomeri buldunuz! Tebrikler!';
   static const String fenomenEliminated = 'Bir Fenomen\'i çıkardınız. Boomerlar hâlâ aramızda...';
   static const String viewResults = 'Sonuçları Gör';
   static const String continueGame = 'Oyuna Devam';

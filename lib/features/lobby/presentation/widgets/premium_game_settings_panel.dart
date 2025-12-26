@@ -182,73 +182,41 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
                 widget.onImposterCountChanged(value.round());
               },
               color: const Color(0xFFFF6B6B),
-            )
-          else
-            // Show fixed value when only one imposter is possible
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: const Color(0xFFFF6B6B).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: const Color(0xFFFF6B6B).withValues(alpha: 0.3),
-                ),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.info_outline,
-                    color: Color(0xFFFF6B6B),
-                    size: 16,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'Boomer sayısı: $validCurrentImposters (oyuncu sayısına göre sabit)',
-                      style: GoogleFonts.montserrat(
-                        color: const Color(0xFFFF6B6B),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
 
           const SizedBox(height: 12),
 
-          if (widget.playerCount > 0)
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFF4ECDC4).withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                  color: const Color(0xFF4ECDC4).withValues(alpha: 0.3),
-                ),
-              ),
-              child: Row(
-                children: [
-                  const Icon(
-                    Icons.info_outline,
-                    color: Color(0xFF4ECDC4),
-                    size: 16,
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      'En fazla Boomer sayısı (${widget.playerCount} oyuncuya göre): $maxImposters',
-                      style: GoogleFonts.montserrat(
-                        color: const Color(0xFF4ECDC4),
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ],
+          // Simple warning message
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFF6B6B).withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color: const Color(0xFFFF6B6B).withValues(alpha: 0.3),
               ),
             ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.warning,
+                  color: Color(0xFFFF6B6B),
+                  size: 16,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    AppStrings.boomerWarning,
+                    style: GoogleFonts.montserrat(
+                      color: const Color(0xFFFF6B6B),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -346,39 +314,6 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
               },
             ),
           ),
-
-          const SizedBox(height: 12),
-
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFF6C5CE7).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: const Color(0xFF6C5CE7).withValues(alpha: 0.3),
-              ),
-            ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.lightbulb_outline,
-                  color: Color(0xFF6C5CE7),
-                  size: 16,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Bu kategoriden rastgele bir kelime Fenomenlere verilecek',
-                    style: GoogleFonts.montserrat(
-                      color: const Color(0xFF6C5CE7),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
     );
@@ -466,39 +401,6 @@ class _PremiumGameSettingsPanelState extends State<PremiumGameSettingsPanel> {
               );
             },
             color: const Color(0xFFFFB74D),
-          ),
-
-          const SizedBox(height: 12),
-
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: const Color(0xFFFFB74D).withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: const Color(0xFFFFB74D).withValues(alpha: 0.3),
-              ),
-            ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.schedule,
-                  color: Color(0xFFFFB74D),
-                  size: 16,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    'Konuşma süresi: ${widget.settings.gameDurationSeconds ~/ 60} ${AppStrings.durationMinutes}',
-                    style: GoogleFonts.montserrat(
-                      color: const Color(0xFFFFB74D),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

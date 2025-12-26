@@ -145,10 +145,8 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                       : _buildPassCard(currentPlayer, gameNotifier),
                 ),
 
-                const Spacer(),
-
-                // Instructions
-                _buildInstructions()
+                // Navigation Buttons
+                _buildNavigationButtons()
                     .animate()
                     .fadeIn(duration: 600.ms, delay: 300.ms)
                     .slideY(begin: 0.3, end: 0),
@@ -165,7 +163,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
       backgroundColor: Colors.transparent,
       elevation: 0,
       title: Text(
-        AppStrings.mysteryReveal,
+        AppStrings.roleReveals,
         style: GoogleFonts.montserrat(
           color: Colors.white,
           fontWeight: FontWeight.bold,
@@ -210,16 +208,6 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text(
-            AppStrings.roleReveals,
-            style: GoogleFonts.montserrat(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1.2,
-            ),
-          ),
-          const SizedBox(height: 16),
           Container(
             height: 8,
             decoration: BoxDecoration(
@@ -314,36 +302,6 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    const SizedBox(height: 16),
-                    Text(
-                      AppStrings.tapToRevealRole,
-                      style: GoogleFonts.montserrat(
-                        color: const Color(0xFF4ECDC4),
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 32),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF4ECDC4).withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(
-                          color: const Color(0xFF4ECDC4).withValues(alpha: 0.5),
-                        ),
-                      ),
-                      child: Text(
-                        AppStrings.passDeviceSecure,
-                        style: GoogleFonts.montserrat(
-                          color: const Color(0xFF4ECDC4),
-                          fontSize: 12,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -414,7 +372,7 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
 
   Widget _buildRoleCardContent(Player player, GameNotifier gameNotifier, bool isImposter) {
     return GestureDetector(
-      onTap: () => _hideAndNext(gameNotifier),
+      onTap: () => _hideRole(gameNotifier),
       child: GlassmorphicCard(
         padding: const EdgeInsets.all(32),
         borderRadius: 20,
@@ -543,26 +501,6 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
                     textAlign: TextAlign.center,
                   ),
                 ],
-
-                // Tap instruction
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: Colors.white.withValues(alpha: 0.3),
-                    ),
-                  ),
-                  child: Text(
-                    AppStrings.tapToHideContinue,
-                    style: GoogleFonts.montserrat(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
               ],
             );
           },
@@ -571,32 +509,65 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
     );
   }
 
-  Widget _buildInstructions() {
-    return GlassmorphicCard(
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        children: [
-          Icon(
-            _isRevealed ? Icons.visibility_off : Icons.visibility,
-            color: const Color(0xFF4ECDC4),
-            size: 24,
+  Widget _buildNavigationButtons() {
+    final gameState = ref.watch(gameNotifierProvider);
+    final gameNotifier = ref.read(gameNotifierProvider.notifier);
+    final currentIndex = gameState.currentRevealIndex;
+    final canGoPrevious = currentIndex > 0;
+    final canGoNext = currentIndex < gameState.players.length - 1;
+
+    return Column(
+      children: [
+        if (_isRevealed) ...[
+          // Navigation buttons when role is revealed
+          Column(
+            children: [
+              if (canGoPrevious)
+                PremiumButton(
+                  text: AppStrings.previousPlayer,
+                  style: PremiumButtonStyle.secondary,
+                  icon: Icons.arrow_back,
+                  onPressed: () => _goToPreviousPlayer(gameNotifier),
+                  height: 48,
+                  isExpanded: true,
+                ),
+              if (canGoPrevious && canGoNext) const SizedBox(height: 12),
+              if (canGoNext)
+                PremiumButton(
+                  text: AppStrings.nextPlayer,
+                  style: PremiumButtonStyle.primary,
+                  icon: Icons.arrow_forward,
+                  onPressed: () => _goToNextPlayer(gameNotifier),
+                  height: 48,
+                  isExpanded: true,
+                ),
+            ],
           ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              _isRevealed
-                  ? AppStrings.roleSecretInstruction
-                  : AppStrings.passToNextInstruction,
-              style: GoogleFonts.montserrat(
-                color: Colors.white.withValues(alpha: 0.8),
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-              ),
-              textAlign: TextAlign.center,
-            ),
+        ] else ...[
+          // Reveal button when role is hidden
+          PremiumButton(
+            text: "Rolünü Görmek İçin Dokun",
+            style: PremiumButtonStyle.primary,
+            icon: Icons.visibility,
+            isExpanded: true,
+            height: 48,
+            onPressed: () => _revealRole(gameNotifier),
           ),
         ],
-      ),
+
+        // Show "Oyuna Başla" button when on the last player
+        if (!canGoNext) ...[
+          const SizedBox(height: 16),
+          PremiumButton(
+            text: "Oyuna Başla",
+            style: PremiumButtonStyle.success,
+            icon: Icons.play_arrow,
+            isExpanded: true,
+            height: 56,
+            onPressed: () => gameNotifier.startGamePlay(),
+          ),
+        ],
+      ],
     );
   }
 
@@ -606,10 +577,40 @@ class _PremiumRoleRevealScreenState extends ConsumerState<PremiumRoleRevealScree
     gameNotifier.showRole();
   }
 
+  void _hideRole(GameNotifier gameNotifier) {
+    HapticFeedback.lightImpact();
+    _cardController.reverse().then((_) {
+      gameNotifier.hideRole();
+      _isDangerMode = false;
+      _dangerController.stop();
+      _dangerController.reset();
+    });
+  }
+
   void _hideAndNext(GameNotifier gameNotifier) {
     HapticFeedback.lightImpact();
     _cardController.reverse().then((_) {
       gameNotifier.hideRoleAndNext();
+      _isDangerMode = false;
+      _dangerController.stop();
+      _dangerController.reset();
+    });
+  }
+
+  void _goToNextPlayer(GameNotifier gameNotifier) {
+    HapticFeedback.lightImpact();
+    _cardController.reverse().then((_) {
+      gameNotifier.goToNextPlayer();
+      _isDangerMode = false;
+      _dangerController.stop();
+      _dangerController.reset();
+    });
+  }
+
+  void _goToPreviousPlayer(GameNotifier gameNotifier) {
+    HapticFeedback.lightImpact();
+    _cardController.reverse().then((_) {
+      gameNotifier.goToPreviousPlayer();
       _isDangerMode = false;
       _dangerController.stop();
       _dangerController.reset();

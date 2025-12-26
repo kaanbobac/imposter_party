@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 import '../domain/game_state.dart';
 import '../../../shared/domain/player.dart';
 import '../../../shared/domain/game_settings.dart';
@@ -77,6 +78,9 @@ class GameNotifier extends _$GameNotifier {
 
     final playersWithRoles = _assignRoles();
 
+    // Enable wakelock to keep screen on during gameplay
+    WakelockPlus.enable();
+
     state = state.copyWith(
       players: playersWithRoles,
       currentPhase: GamePhase.roleReveal,
@@ -133,6 +137,13 @@ class GameNotifier extends _$GameNotifier {
     state = state.copyWith(isRoleRevealed: true);
   }
 
+  /// Hide role for current player
+  void hideRole() {
+    if (state.currentPhase != GamePhase.roleReveal) return;
+
+    state = state.copyWith(isRoleRevealed: false);
+  }
+
   /// Hide role and move to next player
   void hideRoleAndNext() {
     if (state.currentPhase != GamePhase.roleReveal) return;
@@ -153,6 +164,46 @@ class GameNotifier extends _$GameNotifier {
         isRoleRevealed: false,
       );
     }
+  }
+
+  /// Move to next player in role reveal phase
+  void goToNextPlayer() {
+    if (state.currentPhase != GamePhase.roleReveal) return;
+
+    final nextIndex = state.currentRevealIndex + 1;
+
+    if (nextIndex < state.players.length) {
+      state = state.copyWith(
+        currentRevealIndex: nextIndex,
+        isRoleRevealed: false,
+      );
+    }
+  }
+
+  /// Move to previous player in role reveal phase
+  void goToPreviousPlayer() {
+    if (state.currentPhase != GamePhase.roleReveal) return;
+
+    final previousIndex = state.currentRevealIndex - 1;
+
+    if (previousIndex >= 0) {
+      state = state.copyWith(
+        currentRevealIndex: previousIndex,
+        isRoleRevealed: false,
+      );
+    }
+  }
+
+  /// Start the game play phase (after role reveals are complete)
+  void startGamePlay() {
+    if (state.currentPhase != GamePhase.roleReveal) return;
+
+    state = state.copyWith(
+      currentPhase: GamePhase.playing,
+      isGameTimerRunning: true,
+      gameTimeRemaining: state.settings.gameDurationSeconds,
+    );
+    _startGameTimer();
   }
 
   /// Start the game timer
@@ -237,6 +288,9 @@ class GameNotifier extends _$GameNotifier {
   void resetGame() {
     _gameTimer?.cancel();
 
+    // Disable wakelock when returning to lobby
+    WakelockPlus.disable();
+
     // Reset players (keep names but reset roles and elimination status)
     final resetPlayers = state.players.map((player) => Player(
       name: player.name,
@@ -260,5 +314,7 @@ class GameNotifier extends _$GameNotifier {
 
   void dispose() {
     _gameTimer?.cancel();
+    // Ensure wakelock is disabled when the notifier is disposed
+    WakelockPlus.disable();
   }
 }

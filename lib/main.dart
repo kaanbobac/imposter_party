@@ -15,7 +15,7 @@ class ImposterGameApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
 
     return MaterialApp.router(
-      title: 'Kim Bu Aramızdaki Boomer?',
+      title: 'BoomeR',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
